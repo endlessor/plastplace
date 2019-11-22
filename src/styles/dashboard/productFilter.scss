@@ -1,0 +1,50 @@
+.product-filter {
+  margin: 0 0 15px;
+
+  .product-filter-inner {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+
+    .product-filter-text {
+      color: #848484;
+      font-size: 15px;
+    }
+    .product-filter-selects {
+      display: flex;
+      -webkit-box-pack: end;
+      justify-content: flex-end;
+      align-items: center;
+      -webkit-box-flex: 1;
+      flex: 1;
+
+      .select-field-wrap {
+        position: relative;
+        margin-right: 8px;
+
+        .browser-default {
+          background: transparent;
+          height: auto;
+          border: none;
+          color: $blue;
+          -webkit-appearance: none;
+          cursor: pointer;
+          padding: 5px 20px 5px 5px;
+          text-align: center;
+          outline: none !important;
+        }
+      }
+      .select-field-wrap:after {
+        content: "";
+        position: absolute;
+        top: 10px;
+        right: 6px;
+        transform: rotate(-45deg);
+        width: 6px;
+        height: 6px;
+        border-bottom: 1px solid $blue;
+        border-left: 1px solid $blue;
+      }
+    }
+  }
+}

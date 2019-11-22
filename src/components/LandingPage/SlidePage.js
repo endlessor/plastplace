@@ -1,0 +1,111 @@
+import React from "react";
+import Swiper from "react-id-swiper";
+
+import First from "../../assets/img/landing/1.svg";
+import Second from "../../assets/img/landing/2.svg";
+import Third from "../../assets/img/landing/3.svg";
+import Fourth from "../../assets/img/landing/4.svg";
+import Fifth from "../../assets/img/landing/5.svg";
+import Sixth from "../../assets/img/landing/6.svg";
+var I18n = require('react-redux-i18n').I18n;
+
+class SlidePage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      swiper: null
+    };
+  }
+
+  pageSlideItems = [
+    {
+      image: First,
+      title: I18n.t("landing.slide_first_title"),
+      description: I18n.t("landing.slide_first_desc")
+    },
+    {
+      image: Second,
+      title: I18n.t("landing.slide_second_title"),
+      description: I18n.t("landing.slide_second_desc")
+    },
+    {
+      image: Third,
+      title: I18n.t("landing.slide_third_title"),
+      description: I18n.t("landing.slide_third_desc")
+    },
+    {
+      image: Fourth,
+      title: I18n.t("landing.slide_fourth_title"),
+      description: I18n.t("landing.slide_fourth_desc")
+    },
+    {
+      image: Fifth,
+      title: I18n.t("landing.slide_fifth_title"),
+      description: I18n.t("landing.slide_fifth_desc")
+    },
+    {
+      image: Sixth,
+      title: I18n.t("landing.slide_sixth_title"),
+      description: I18n.t("landing.slide_sixth_desc")
+    }
+  ];
+
+  slideChange = () => {
+    const { blockUp, blockDown, currentPage } = this.props;
+    const { swiper } = this.state;
+    if (currentPage !== 3) {
+      blockDown(false)
+      blockUp(false)
+      return
+    }
+    if (swiper.activeIndex < 5) {
+      blockDown(true);
+    } else {
+      setTimeout(() => blockDown(false), 1000);
+    }
+    if (swiper.activeIndex > 0) {
+      blockUp(true);
+    } else {
+      setTimeout(() => blockUp(false), 1000);
+    }
+  };
+
+  render() {
+    const params = {
+      slidesPerView: 1,
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev"
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        type: "bullets",
+        clickable: true
+      },
+      mousewheel: true,
+      on: {
+        slideChange: this.slideChange
+      }
+    };
+
+    return (
+      <Swiper {...params} getSwiper={swiper => this.setState({ swiper })}>
+        {this.pageSlideItems.map(item => (
+          <div
+            key={item.title}
+            className="landing-slide-main"
+            style={{ backgroundImage: `url(${item.image})` }}
+          >
+            <div className="sliding-filter-sheet"></div>
+            <div className="main-content">
+              <div className="slide-title">{item.title}</div>
+              <div className="slide-desc">{item.description}</div>
+            </div>
+          </div>
+        ))}
+      </Swiper>
+    );
+  }
+}
+
+export default SlidePage;
